@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Image from '../image/image';
 import { mapJsonRichText } from '../../utils/renderRichText';
 
-import './imagelist.css';
+import './cards.css';
 
-const ImageList = ({ content }) => {
+const Cards = ({ content }) => {
   const editorProps = {
     'data-aue-resource': `urn:aemconnection:${content._path}/jcr:content/data/master`,
     'data-aue-type': 'container',
@@ -25,7 +25,7 @@ const ImageList = ({ content }) => {
   );
 };
 
-const Cards = ({ card }) => {
+const Card = ({ card }) => {
   const editorProps = {
     'data-aue-type': 'reference',
     'data-aue-behavior': 'component',

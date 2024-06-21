@@ -12,16 +12,17 @@ const Image = ({ asset, itemProp='asset' }) => {
     `${url.origin + _dynamicUrl.replace('width=1900', 'width=900')} 900w`,
     `${url.origin + _dynamicUrl.replace('width=1900', 'width=')} 600w`
   ];
-  console.log()
+
   const editorProps = {
     'data-aue-prop':itemProp,
-    'data-aue-type': 'media',
-    'data-aue-model':'image'
+    'data-aue-type':'media',
+    'data-aue-model':'image',
+    'data-aue-label':'Asset'
   };
 
   return (
     <picture>
-      <img  {...editorProps} data-aue-label='Asset' src={`${_authorUrl}` }
+      <img  {...editorProps} title={asset.title} alt={asset.description} src={`${_authorUrl}` }
         srcSet={srcset.join(',')}
       />
     </picture>
