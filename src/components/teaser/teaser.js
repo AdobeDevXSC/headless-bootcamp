@@ -37,10 +37,6 @@ const Teaser = ({ content }) => {
               <h5 itemProp='preTitle' itemType='text'>{content.preTitle}</h5>
             )}
 
-
-            {content.description && content.style === 'featured' && (
-              <p itemProp='description' itemType='richtext'>{content.description.plaintext}</p>
-            )}
           </div>
         </div>
 
