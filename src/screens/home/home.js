@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AEMHeadless from '@adobe/aem-headless-client-js';
 import Teaser from '../../components/teaser/teaser';
-// import ImageList from '../../components/imagelist/imagelist';
+import Cards from '../../components/cards/cards';
 
 import './home.css';
 
 const Home = ({ context }) => {
-  // const [list, setList] = useState({});
+  const [cards, setCards] = useState({});
   const [content, setContent] = useState({});
 
   useEffect(() => {
@@ -31,25 +31,25 @@ const Home = ({ context }) => {
         console.log(`Error with pure-headless/teaser. ${error.message}`);
       });
 
-    // sdk.runPersistedQuery('pure-headless/imagelist')
-    //   .then(({ data }) => {
-    //     if (data) {
-    //       setList(data);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(`Error with pure-headless/imagelist. ${error.message}`);
-    //   });
+    sdk.runPersistedQuery('pure-headless/cards', {headline: 'recent article'})
+      .then(({ data }) => {
+        if (data) {
+          setCards(data);
+        }
+      })
+      .catch((error) => {
+        console.log(`Error with pure-headless/cards. ${error.message}`);
+      });
 
 
   }, [context.url, context.endpoint, context.project]);
+
   return (
     <div className='main-body'>
       <div>{content.component && <Teaser content={content.component.item} />}</div>
-      {/* <div>{list.imagelist && list.imagelist.items.map((item) => (
-        <ImageList key={item} content={item} />
-      ))}
-      </div> */}
+      <div>
+        {cards.cardsList && <Cards content={cards} />}
+      </div>
     </div>
   );
 };
