@@ -8,30 +8,28 @@ import './cardslist.css';
 const CardsList = ({ content }) => {
 
   return (
-    <div className='imagelist'>
-      {content.items && content.items.map((items) => (
-        <Cards key={items} content={items.listItems} />
-      ))}
-
-    </div>
+    <React.Fragment>
+      {content && content.headline && content.headline.html && <span className='headline' dangerouslySetInnerHTML={{ __html: content.headline.html }} />}
+      <div className='cards'>
+        {content && content.card && content.card.map((item) => (
+          <Card key={item._path} content={item} />
+        ))}
+      </div>
+    </React.Fragment >
   );
 };
 
-const Cards = ({ content }) => {
+const Card = ({ content }) => {
   return (
-    <div className='cards'>
-      {content && content.map((card) => (
-        <div className='card' key={card._path}>
-          <Image src={card.asset._dynamicUrl} />
-          <h3>{card._metadata && parseName(card)}</h3>
-          <div>{mapJsonRichText(card.description.json)}</div>
-        </div>
-      ))}
+    <div className='card' key={content._path}>
+      {content && content.primaryImage && <Image asset={content.primaryImage} />}
+      <h3>{content._metadata && parseName(content)}</h3>
+      <div>{mapJsonRichText(content.description.json)}</div>
     </div>
   );
 };
 
-Cards.propTypes = {
+Card.propTypes = {
   content: PropTypes.array
 };
 
