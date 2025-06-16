@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import BrokenImage from '../../../assets/broken-image.png'
 
 const Image = ({ asset, itemProp='asset' }) => {
 
+  if( !asset || !asset._authorUrl || !asset._dynamicUrl ) {
+    return <img src={BrokenImage} alt="Broken Image" />;
+  }
+  
   const {_authorUrl, _dynamicUrl} = asset;
   const url = new URL(_authorUrl);
 
