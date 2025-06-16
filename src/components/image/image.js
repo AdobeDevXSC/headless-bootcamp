@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BrokenImage from '../../../assets/broken-image.png'
+import BrokenImage from '../../assets/broken-image.png'
 
 const Image = ({ asset, itemProp='asset' }) => {
 
