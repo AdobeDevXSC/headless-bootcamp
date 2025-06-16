@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Image from '../image/image';
 import { mapJsonRichText } from '../../utils/renderRichText';
 
-import './imagelist.css';
+import './cardslist.css';
 
-const ImageList = ({ content }) => {
+const CardsList = ({ content }) => {
 
   return (
     <div className='imagelist'>
@@ -45,8 +45,8 @@ const parseName = ({ _metadata }) => {
   return cardName;
 };
 
-ImageList.propTypes = {
+CardsList.propTypes = {
   content: PropTypes.object
 };
 
-export default ImageList;
+export default CardsList;
