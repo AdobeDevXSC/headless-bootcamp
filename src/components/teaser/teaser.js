@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import Video from '../video';
 import Image from '../image/image';
 import './teaser.css';
-
+import { mapJsonRichText } from '../../utils/renderRichText';
+// This component renders a teaser section with an image or video, title, pre-title, and description.
 
 const Teaser = ({ content }) => {
 
@@ -38,8 +39,8 @@ const Teaser = ({ content }) => {
             )}
 
 
-            {content.description && content.style === 'featured' && (
-              <p itemProp='description' itemType='richtext'>{content.description.plaintext}</p>
+            {content.description && (
+              <p itemProp='description' itemType='richtext'>{mapJsonRichText(content.description.json)}</p>
             )}
           </div>
         </div>
