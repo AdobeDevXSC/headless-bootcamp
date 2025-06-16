@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AEMHeadless from '@adobe/aem-headless-client-js';
 import Teaser from '../../components/teaser/teaser';
-import Cards from '../../components/cards/cards';
+import CardsList from '../../components/cardslist/cardslist';
 
 import './home.css';
 
@@ -31,14 +31,15 @@ const Home = ({ context }) => {
         console.log(`Error with pure-headless/teaser. ${error.message}`);
       });
 
-    sdk.runPersistedQuery('pure-headless/cards', {headline: 'recent article'})
+    sdk.runPersistedQuery('pure-headless/cardsList', { path: `/content/dam/${context.project}/cards` })
       .then(({ data }) => {
         if (data) {
-          setCards(data);
+          setCards(data?.cardsByPath?.item);
+          console.log(data?.cardsByPath?.item);
         }
       })
       .catch((error) => {
-        console.log(`Error with pure-headless/cards. ${error.message}`);
+        console.log(`Error with pure-headless/cardslist. ${error.message}`);
       });
 
 
@@ -47,9 +48,7 @@ const Home = ({ context }) => {
   return (
     <div className='main-body'>
       <div>{content.component && <Teaser content={content.component.item} />}</div>
-      <div>
-        {cards.cardsList && <Cards content={cards} />}
-      </div>
+      <div className='cardslist'>{cards && <CardsList content={cards} />}</div>
     </div>
   );
 };

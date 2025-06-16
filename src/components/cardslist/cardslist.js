@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Image from '../image/image';
 import { mapJsonRichText } from '../../utils/renderRichText';
 
-import './cards.css';
+import './cardslist.css';
 
-const Cards = ({ content }) => {
+const CardsList = ({ content }) => {
   const editorProps = (item) => {
     return {
       'data-aue-resource': `urn:aemconnection:${item?._path}/jcr:content/data/${item?._variation}`,
@@ -19,40 +19,33 @@ const Cards = ({ content }) => {
 
   return (
     <React.Fragment>
-      {
-        content.cardsList.items.map((item, i) => (
-          <div key={i} className='imagelist' {...editorProps(item)}>
-            {mapJsonRichText(item.headline.json)}
-            <div className='cards'>
-              {item.cards && item.cards.map((card, x) => (
-                <Card key={x} card={card} />
-              ))}
-            </div>
-
-          </div>
-        ))
-      }
-    </React.Fragment>
+      {content && content.headline && content.headline.html && <span className='headline' dangerouslySetInnerHTML={{ __html: content.headline.html }} />}
+      <div className='cards' {...editorProps(content)}>
+        {content && content.card && content.card.map((item) => (
+          <Card key={item._path} content={item} />
+        ))}
+      </div>
+    </React.Fragment >
   );
 };
 
-const Card = ({ card }) => {
+const Card = ({ content }) => {
   const editorProps = {
     'data-aue-type': 'reference',
     'data-aue-behavior': 'component',
   };
 
   return (
-    <div className='card' data-aue-label={parseName(card)} key={card._path} data-aue-resource={`urn:aemconnection:${card._path}/jcr:content/data/${card._variation}`} {...editorProps}>
-      <Image asset={card.primaryImage} />
-      <h3>{card.title}</h3>
-      <div data-aue-prop='description' data-aue-type='richtext'>{mapJsonRichText(card.description.json)}</div>
+    <div className='card' key={content._path} {...editorProps}>
+      {content && content.primaryImage && <Image asset={content.primaryImage} />}
+      <h3>{content._metadata && parseName(content)}</h3>
+      <div>{mapJsonRichText(content.description.json)}</div>
     </div>
   );
 };
 
 Card.propTypes = {
-  card: PropTypes.object
+  content: PropTypes.object
 };
 
 const parseName = ({ _metadata }) => {
@@ -66,8 +59,8 @@ const parseName = ({ _metadata }) => {
   return cardName;
 };
 
-Cards.propTypes = {
+CardsList.propTypes = {
   content: PropTypes.object
 };
 
-export default Cards;
+export default CardsList;

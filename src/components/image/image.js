@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import BrokenImage from '../../assets/broken-image.png'
 
 const Image = ({ asset, itemProp='asset' }) => {
 
+  if( !asset || !asset._authorUrl || !asset._dynamicUrl ) {
+    return <img src={BrokenImage} alt="Broken Image" />;
+  }
+  
   const {_authorUrl, _dynamicUrl} = asset;
   const url = new URL(_authorUrl);
 
@@ -13,16 +18,9 @@ const Image = ({ asset, itemProp='asset' }) => {
     `${url.origin + _dynamicUrl.replace('width=1900', 'width=')} 600w`
   ];
 
-  const editorProps = {
-    'data-aue-prop':itemProp,
-    'data-aue-type':'media',
-    'data-aue-model':'image',
-    'data-aue-label':'Asset'
-  };
-
   return (
     <picture>
-      <img  {...editorProps} title={asset.title} alt={asset.description} src={`${_authorUrl}` }
+      <img itemProp={itemProp} itemType="media" data-editor-itemlabel='Asset' src={`${_authorUrl}` }
         srcSet={srcset.join(',')}
       />
     </picture>
