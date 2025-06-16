@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Video from '../video';
 import Image from '../image/image';
+import { mapJsonRichText } from '../../utils/renderRichText';
 import './teaser.css';
 
 
@@ -35,6 +36,10 @@ const Teaser = ({ content }) => {
 
             {content.preTitle && content.style === 'featured' && (
               <h5 itemProp='preTitle' itemType='text'>{content.preTitle}</h5>
+            )}
+
+            {content.description && (
+              <span data-aue-prop='description' data-aue-type='richtext' data-aue-label='Description'>{mapJsonRichText(content.description.json)}</span>
             )}
 
           </div>
