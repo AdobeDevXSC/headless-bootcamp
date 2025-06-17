@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Image from '../image/image';
 import { mapJsonRichText } from '../../utils/renderRichText';
 
-import './imagelist.css';
+import './cardslist.css';
 
 const ImageList = ({ content }) => {
 
